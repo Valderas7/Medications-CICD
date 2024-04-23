@@ -64,10 +64,10 @@ jobs:
         # Con el comando pipe (|) se encadenan todos los comandos
         run: |
           # Se configura como nombre de la cuenta de 'Git' la configurada como secreto en el repositorio
-          git config --global user.name $(NAME)
+          git config --global user.name $NAME
           
           # Se configura como mail de la cuenta de 'Git' la configurada como secreto en el repositorio
-          git config --global user.email $(EMAIL)
+          git config --global user.email $EMAIL
 
           # Se hace un 'commit' añadiendo automáticamente los cambios de todos los archivos trackeados
           git commit -am "Actualizado con nuevos resultados"
