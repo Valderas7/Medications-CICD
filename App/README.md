@@ -1,5 +1,3 @@
-# Weather-CICD
-
 ---
 title: Weather Classification
 emoji: ⚡

@@ -69,7 +69,7 @@ plt.savefig("./Results/model_results.png", dpi=120)
 
 # Se escriben las métricas de 'accuracy' y Valor-F en un archivo de texto, almacenándolo dentro de la carpeta 'Results'
 with open("./Results/metrics.txt", "w") as outfile:
-    outfile.write(f"\nAccuracy = {round(accuracy, 2)}, F1 Score = {round(f1, 2)}")
+    outfile.write(f"\nAccuracy = {round(accuracy, 2) * 100}%, F1 Score = {round(f1, 2)}")
 
 # Se guarda el modelo dentro de la carpeta 'Model'
 sio.dump(pipe, "./Model/drug_pipeline.skops")
