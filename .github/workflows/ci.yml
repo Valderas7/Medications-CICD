@@ -54,3 +54,23 @@ jobs:
 
           # Devuelve un informe CML como un comentario en el flujo de trabajo
           cml comment create report.md
+      
+      # 7to paso (Update Branch):
+      - name: Update Branch
+        # Como variables de entorno se usa el nombre y el mail configurados como secretos en la config. del repositorio
+        env:
+          NAME: ${{ secrets.USER_NAME }}
+          EMAIL: ${{ secrets.USER_EMAIL }}
+        # Con el comando pipe (|) se encadenan todos los comandos
+        run: |
+          # Se configura como nombre de la cuenta de 'Git' la configurada como secreto en el repositorio
+          git config --global user.name $(NAME)
+          
+          # Se configura como mail de la cuenta de 'Git' la configurada como secreto en el repositorio
+          git config --global user.email $(EMAIL)
+
+          # Se hace un 'commit' añadiendo automáticamente los cambios de todos los archivos trackeados
+          git commit -am "Actualizado con nuevos resultados"
+
+          # Se hace un 'push' forzado' al repositorio remoto en la rama 'update'
+          git push --force origin HEAD:update
