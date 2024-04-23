@@ -67,7 +67,7 @@ disp.plot()
 # La matriz de confusión se guarda dentro de la carpeta 'Results'
 plt.savefig("./Results/model_results.png", dpi=120)
 
-# Se escriben las métricas de 'accuracy' y Valor-F en un archivo de texto, almacenándolo dentro de la carpeta 'Results'
+# Se escriben las métricas de 'accuracy' y Valor-F en un archivo de texto, almacenándolo en la carpeta 'Results'
 with open("./Results/metrics.txt", "w") as outfile:
     outfile.write(f"\nAccuracy = {round(accuracy, 2) * 100}%, F1 Score = {round(f1, 2)}")
 
