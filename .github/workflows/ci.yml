@@ -1,0 +1,53 @@
+# Nombre del flujo de trabajo
+name: Continuous Integration
+# Desencadenantes del flujo de trabajo:
+on:
+  # 'Push' en la rama 'main
+  push:
+    branches: [ "main" ]
+  # 'Pull Request' en la rama 'main
+  pull_request:
+    branches: [ "main" ]
+  # Ejecución manual
+  workflow_dispatch:
+
+# Trabajos del flujo de trabajo (en este caso solo hay uno)
+jobs:
+  # Se crea un entorno con una máquina virtual de Linux
+  build:
+    runs-on: ubuntu-latest
+    # Pasos del trabajo
+    steps:
+      # 1er paso: acción que verifica el repositorio en para que el flujo de trabajo pueda acceder a él:
+      - uses: actions/checkout@v4
+      # 2do paso: acción para usar funciones de la librería CML en el flujo de trabajo:
+      - uses: iterative/setup-cml@v2
+      # 3er paso (Install Packages): se actualiza 'pip' y se instalan las librerías del 'requirements.txt':
+      - name: Install Packages
+        run: pip install --upgrade pip && pip install -r requirements.txt
+      # 4to paso (Format): Con 'black' se identifican errores y se formatea el código de Python:
+      - name: Format
+        run: black *.py
+      # 5to paso (Train): Se ejecuta el código de entrenamiento 'train.py':
+      - name: Train
+        run: python train.py
+      # 6to paso (Evaluation): Se ejecuta el código de entrenamiento 'train.py'
+      - name: Evaluation
+        # Variable de entorno: REPO_TOKEN tiene como valor el token que se crea automáticamente para el flujo de trabajo
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # La frase "## Model Metrics" se escribe en 'report.md'
+          echo "## Model Metrics" > report.md
+          
+          # Las métricas de 'accuracy' y 'F1-Score' se escriben en 'report.md'
+          cat ./Results/metrics.txt >> report.md
+          
+          # La frase "## Confusion Matrix Plot" se escribe en 'report.md'
+          echo '\n## Confusion Matrix Plot' >> report.md
+          
+          # La matriz de confusión se escribe en 'report.md'
+          echo '![Confusion Matrix](./Results/model_results.png)' >> report.md
+
+          # Devuelve un informe CML como un comentario en el flujo de trabajo
+          cml comment create report.md
