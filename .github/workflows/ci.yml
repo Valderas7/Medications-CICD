@@ -11,6 +11,8 @@ on:
   # Ejecución manual
   workflow_dispatch:
 
+# Se da permisos de escritura en todos los ámbitos al flujo de trabajo 
+permissions: write-all
 # Trabajos del flujo de trabajo (en este caso solo hay uno)
 jobs:
   # Se crea un entorno con una máquina virtual de Linux
@@ -31,11 +33,12 @@ jobs:
       # 5to paso (Train): Se ejecuta el código de entrenamiento 'train.py':
       - name: Train
         run: python train.py
-      # 6to paso (Evaluation): Se ejecuta el código de entrenamiento 'train.py'
+      # 6to paso (Evaluation): Se escribe el informe con métricas y matriz de confusión, mostrándose como un comentario:
       - name: Evaluation
         # Variable de entorno: REPO_TOKEN tiene como valor el token que se crea automáticamente para el flujo de trabajo
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Con el comando pipe (|) se encadenan todos los comandos
         run: |
           # La frase "## Model Metrics" se escribe en 'report.md'
           echo "## Model Metrics" > report.md
