@@ -36,7 +36,7 @@ ord_col = [i for i, col in enumerate(cols) if col == 'BP' or col == 'Cholesterol
 # columnas categóricas.
 # Posteriormente se usa 'StandardScaler' para estandarizar las columnas numéricas con media cero y varianza unidad; se
 # usa 'OneHotEncoder' para variables categóricas cuyos valores no tienen orden ninguno; y 'OrdinalEncoder' para variables
-# categóricas cuyos valores tienen un orden
+# categóricas cuyos valores tienen un orden establecido
 transform = ColumnTransformer([("num_imputer", SimpleImputer(strategy="median"), num_col),
                                ("ohe_encoding", OneHotEncoder(), ohe_col),
                                ("num_scaler", StandardScaler(), num_col),
