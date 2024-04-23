@@ -26,7 +26,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 cols = drugs_df.columns.values.tolist()
 
 # Se dividen las columnas en numéricas, y en aquellas categóricas a las que se les va realizar 'One Hot Encoding' o
-# 'Ordinal Encoding' (se almacenan los índices de las columnas, no los nombres)
+# 'Ordinal Encoding' (se almacenan los índices de las columnas, no los nombres de las mismas)
 num_col = [i for i, col in enumerate(cols) if col == 'Age' or col == 'Na_to_K']
 ohe_col = [i for i, col in enumerate(cols) if col == 'Sex']
 ord_col = [i for i, col in enumerate(cols) if col == 'BP' or col == 'Cholesterol']
