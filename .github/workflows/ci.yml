@@ -27,7 +27,7 @@ jobs:
     
     # Pasos del trabajo
     steps:
-      # 1er paso: acción que verifica el repositorio en para que el flujo de trabajo pueda acceder a él:
+      # 1er paso: acción que verifica el repositorio para que el flujo de trabajo pueda acceder a él:
       - uses: actions/checkout@v4
       
       # 2do paso: acción para usar funciones de la librería CML en el flujo de trabajo:

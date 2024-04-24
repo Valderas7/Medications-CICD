@@ -22,7 +22,7 @@ jobs:
     
     # Pasos del trabajo
     steps:
-      # 1er paso: acción que verifica el repositorio en para que el flujo de trabajo pueda acceder a él:
+      # 1er paso: acción que verifica el repositorio para que el flujo de trabajo pueda acceder a él:
       - uses: actions/checkout@v4
 
       # 2o paso (Despliegue a Hugging Face):
@@ -44,10 +44,11 @@ jobs:
           # Se cambia a la rama 'update' (prácticamente igual a 'git checkout')
           git switch update
           
-          # Se logea a la interfaz de línea de comandos de Hugging Face con el token creado para escribir en la web
+          # Se logea a la interfaz de línea de comandos de Hugging Face con el token creado con permisos de escritura
           huggingface-cli login --token $HF --add-to-git-credential
           
-          # Se sube al espacio de 'Hugging Face' la carpeta 'App' donde está el código de la aplicación web y el README.md
+          # Se sube al espacio de 'Hugging Face' la carpeta 'App' donde está el código de la aplicación web y 
+          # el README.md
           huggingface-cli upload Valderas7/Drugs-Classification ./App --repo-type=space --commit-message="Archivos aplicación web"
           
           # Se sube al espacio de 'Hugging Face' la carpeta 'Model' donde está el modelo entrenado
