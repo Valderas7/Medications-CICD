@@ -1,4 +1,4 @@
-# Librerías
+# Librerías usadas
 import pandas as pd
 import skops.io as sio
 import matplotlib.pyplot as plt
