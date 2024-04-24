@@ -27,10 +27,13 @@ jobs:
 
       # 2o paso (Despliegue a Hugging Face):
       - name: Despliegue a Hugging Face
-        # Variables de entornos
+
+        # Variables de entorno
         env:
           # Se usa el token creado en Hugging Face y establecido como secreto en la configuración de este repositorio
           HF: ${{ secrets.HF }}
+
+        # Con el comando pipe (|) se encadenan todos los comandos
         run: |
           # Se instala la interfaz de línea de comandos de 'Hugging Face'
           pip install -U "huggingface_hub[cli]"
@@ -50,5 +53,6 @@ jobs:
           # Se sube al espacio de 'Hugging Face' la carpeta 'Model' donde está el modelo entrenado
           huggingface-cli upload Valderas7/Drugs-Classification ./Model /Model --repo-type=space --commit-message="Modelo actualizado"
           
-          # Se sube al espacio de 'Hugging Face' la carpeta 'Results' donde están las métricas y la matriz de confusión
+          # Se sube al espacio de 'Hugging Face' la carpeta 'Results' de 'Git' donde están las métricas y la matriz de 
+          # confusión, nombrándose a la carpeta 'Metrics' en el espacio de 'Hugging Face' 
           huggingface-cli upload Valderas7/Drugs-Classification ./Results /Metrics --repo-type=space --commit-message="Métricas"

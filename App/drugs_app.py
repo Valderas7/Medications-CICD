@@ -3,7 +3,8 @@ import gradio as gr
 import skops.io as sio
 
 # Se carga el modelo entrenado sin comprobaciones de seguridad
-pipe = sio.load("../Model/drugs.skops", trusted=True)
+#pipe = sio.load("../Model/drugs.skops", trusted=True)  # Para ejecutar en local
+pipe = sio.load("./Model/drugs.skops", trusted=True)    # Para ejecutar en el espacio de 'Hugging Face'
 
 # Función para predecir el medicamento que necesita el paciente
 def predict_drug(age, sex, blood_pressure, cholesterol, na_to_k_ratio):

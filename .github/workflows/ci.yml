@@ -47,9 +47,11 @@ jobs:
         
       # 6to paso (Evaluación): Se escribe el informe con métricas y matriz de confusión, mostrándose como un comentario:
       - name: Evaluación
+
         # Variable de entorno: REPO_TOKEN tiene como valor el token que se crea automáticamente para el flujo de trabajo
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
         # Con el comando pipe (|) se encadenan todos los comandos
         run: |
           # La frase "## Model Metrics" se escribe en 'report.md'
