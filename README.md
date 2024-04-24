@@ -1,6 +1,6 @@
 # Medications-CICD
 
-En este repositorio se realiza un entrenamiento de un algoritmo de `machine learning` para intentar predecir el mejor medicamento para una serie de pacientes. 
+En este repositorio se realiza un entrenamiento de un algoritmo de `machine learning` para intentar predecir el mejor medicamento para una serie de pacientes y se despliega el modelo a través de una aplicación web mediante un espacio de `Hugging Face`.
 
 Se automatiza mediante dos flujos de trabajo en `GitHub Actions` los procesos de integración continua (`CI`) y despliegue continuo (`CD`):
 
