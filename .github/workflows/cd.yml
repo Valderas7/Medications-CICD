@@ -32,7 +32,7 @@ jobs:
           # Se usa el token creado en Hugging Face y establecido como secreto en la configuración de este repositorio
           HF: ${{ secrets.HF }}
         run: |
-          # Se instala la interfaz de línea de comandos de Hugging Face
+          # Se instala la interfaz de línea de comandos de 'Hugging Face'
           pip install -U "huggingface_hub[cli]"
           
           # Se hace un 'pull' a la rama 'update' remota
@@ -41,11 +41,14 @@ jobs:
           # Se cambia a la rama 'update' (prácticamente igual a 'git checkout')
           git switch update
           
-          # Se logea a la interfaz de línea de comandos de Hugging Face con el token
+          # Se logea a la interfaz de línea de comandos de Hugging Face con el token creado para escribir en la web
           huggingface-cli login --token $HF --add-to-git-credential
           
-          huggingface-cli upload kingabzpro/Drug-Classification ./App --repo-type=space --commit-message="Sync App files"
+          # Se sube al espacio de 'Hugging Face' la carpeta 'App' donde está el código de la aplicación web y el README.md
+          huggingface-cli upload Valderas7/Drugs-Classification ./App --repo-type=space --commit-message="Archivos aplicación web"
           
-          huggingface-cli upload kingabzpro/Drug-Classification ./Model /Model --repo-type=space --commit-message="Sync Model"
+          # Se sube al espacio de 'Hugging Face' la carpeta 'Model' donde está el modelo entrenado
+          huggingface-cli upload Valderas7/Drugs-Classification ./Model /Model --repo-type=space --commit-message="Modelo actualizado"
           
-          huggingface-cli upload kingabzpro/Drug-Classification ./Results /Metrics --repo-type=space --commit-message="Sync Model"
+          # Se sube al espacio de 'Hugging Face' la carpeta 'Results' donde están las métricas y la matriz de confusión
+          huggingface-cli upload Valderas7/Drugs-Classification ./Results /Metrics --repo-type=space --commit-message="Métricas"
