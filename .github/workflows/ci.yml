@@ -55,7 +55,7 @@ jobs:
           # Devuelve un informe CML como un comentario en el flujo de trabajo
           cml comment create report.md
       
-      # 7to paso (Update Branch):
+      # 7to paso (Update Branch): Actualiza la rama 'update' de GitHub con nuevos modelos, métricas y matriz de confusión
       - name: Update Branch
         # Como variables de entorno se usa el nombre y el mail configurados como secretos en la config. del repositorio
         env:
