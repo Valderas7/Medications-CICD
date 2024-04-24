@@ -20,9 +20,7 @@ X = drugs_df.drop("Drug", axis=1).values
 y = drugs_df["Drug"].values
 
 # Se realiza la repartición entrenamiento (80%) y test (20%)
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Se recopilan las columnas del 'dataframe' en una lista
 cols = drugs_df.columns.values.tolist()
@@ -79,9 +77,7 @@ plt.savefig("./Results/model_results.png", dpi=120)
 
 # Se escriben las métricas de 'accuracy' y Valor-F en un archivo de texto, almacenándolo en la carpeta 'Results'
 with open("./Results/metrics.txt", "w") as outfile:
-    outfile.write(
-        f"\nAccuracy = {round(accuracy, 2) * 100}%, F1 Score = {round(f1, 2)}"
-    )
+    outfile.write(f"\nAccuracy = {round(accuracy, 2) * 100}%, F1 Score = {round(f1, 2)}")
 
 # Se guarda el modelo dentro de la carpeta 'Model'
-sio.dump(pipe, "./Model/drug_pipeline.skops")
+sio.dump(pipe, "./Model/drugs.skops")

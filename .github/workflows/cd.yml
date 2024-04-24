@@ -1,0 +1,51 @@
+# Nombre del flujo de trabajo
+name: Continuous Deployment
+
+# Desencadenantes del flujo de trabajo:
+on:
+
+  # Cuando se complete el flujo de trabajo 'Continuous Integration'
+  workflow_run:
+    workflows: ["Continuous Integration"]
+    types:
+      - completed
+
+  # Ejecución manual
+  workflow_dispatch:
+
+# Trabajos del flujo de trabajo (en este caso solo hay uno)
+jobs:
+
+  # Se crea un entorno con una máquina virtual de Linux
+  build:
+    runs-on: ubuntu-latest
+    
+    # Pasos del trabajo
+    steps:
+      # 1er paso: acción que verifica el repositorio en para que el flujo de trabajo pueda acceder a él:
+      - uses: actions/checkout@v4
+
+      # 2o paso (Despliegue a Hugging Face):
+      - name: Despliegue a Hugging Face
+        # Variables de entornos
+        env:
+          # Se usa el token creado en Hugging Face y establecido como secreto en la configuración de este repositorio
+          HF: ${{ secrets.HF }}
+        run: |
+          # Se instala la interfaz de línea de comandos de Hugging Face
+          pip install -U "huggingface_hub[cli]"
+          
+          # Se hace un 'pull' a la rama 'update' remota
+          git pull origin update
+          
+          # Se cambia a la rama 'update' (prácticamente igual a 'git checkout')
+          git switch update
+          
+          # Se logea a la interfaz de línea de comandos de Hugging Face con el token
+          huggingface-cli login --token $HF --add-to-git-credential
+          
+          huggingface-cli upload kingabzpro/Drug-Classification ./App --repo-type=space --commit-message="Sync App files"
+          
+          huggingface-cli upload kingabzpro/Drug-Classification ./Model /Model --repo-type=space --commit-message="Sync Model"
+          
+          huggingface-cli upload kingabzpro/Drug-Classification ./Results /Metrics --repo-type=space --commit-message="Sync Model"

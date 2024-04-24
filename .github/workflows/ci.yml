@@ -1,40 +1,52 @@
 # Nombre del flujo de trabajo
 name: Continuous Integration
+
 # Desencadenantes del flujo de trabajo:
 on:
+
   # 'Push' en la rama 'master':
   push:
     branches: [ "master" ]
+
   # 'Pull Request' en la rama 'master':
   pull_request:
     branches: [ "master" ]
+
   # Ejecución manual
   workflow_dispatch:
 
 # Se da permisos de escritura en todos los ámbitos al flujo de trabajo 
 permissions: write-all
+
 # Trabajos del flujo de trabajo (en este caso solo hay uno)
 jobs:
+
   # Se crea un entorno con una máquina virtual de Linux
   build:
     runs-on: ubuntu-latest
+    
     # Pasos del trabajo
     steps:
       # 1er paso: acción que verifica el repositorio en para que el flujo de trabajo pueda acceder a él:
       - uses: actions/checkout@v4
+      
       # 2do paso: acción para usar funciones de la librería CML en el flujo de trabajo:
       - uses: iterative/setup-cml@v2
-      # 3er paso (Install Packages): se actualiza 'pip' y se instalan las librerías del 'requirements.txt':
-      - name: Install Packages
+      
+      # 3er paso (Instalar librerías): se actualiza 'pip' y se instalan las librerías del 'requirements.txt':
+      - name: Instalar librerías
         run: pip install --upgrade pip && pip install -r requirements.txt
-      # 4to paso (Format): Con 'black' se identifican errores y se formatea el código de Python:
-      - name: Format
+        
+      # 4to paso (Formateo): Con 'black' se identifican errores y se formatea el código de Python:
+      - name: Formateo
         run: black *.py
-      # 5to paso (Train): Se ejecuta el código de entrenamiento 'train.py':
-      - name: Train
+        
+      # 5to paso (Entrenamiento): Se ejecuta el código de entrenamiento 'train.py':
+      - name: Entrenamiento
         run: python train.py
-      # 6to paso (Evaluation): Se escribe el informe con métricas y matriz de confusión, mostrándose como un comentario:
-      - name: Evaluation
+        
+      # 6to paso (Evaluación): Se escribe el informe con métricas y matriz de confusión, mostrándose como un comentario:
+      - name: Evaluación
         # Variable de entorno: REPO_TOKEN tiene como valor el token que se crea automáticamente para el flujo de trabajo
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -55,8 +67,8 @@ jobs:
           # Devuelve un informe CML como un comentario en el flujo de trabajo
           cml comment create report.md
       
-      # 7to paso (Update Branch): Actualiza la rama 'update' de GitHub con nuevos modelos, métricas y matriz de confusión
-      - name: Update Branch
+      # 7to paso (Actualiza rama): Actualiza la rama 'update' de GitHub con nuevos modelos, métricas y matriz de confusión
+      - name: Actualiza rama
         # Como variables de entorno se usa el nombre y el mail configurados como secretos en la config. del repositorio
         env:
           NAME: ${{ secrets.USER_NAME }}
