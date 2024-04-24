@@ -2,12 +2,12 @@
 name: Continuous Integration
 # Desencadenantes del flujo de trabajo:
 on:
-  # 'Push' en la rama 'main
+  # 'Push' en la rama 'master'
   push:
-    branches: [ "main" ]
-  # 'Pull Request' en la rama 'main
+    branches: [ "master" ]
+  # 'Pull Request' en la rama 'master'
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
   # Ejecución manual
   workflow_dispatch:
 
